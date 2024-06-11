@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Test token</title>    
+</head>
+<body>
+    <div id="regist_token">
+        <h1>Get and Store Token</h1>
+        <button onclick="check_token()">Store Token</button>
+    </div>
+    <div id="attend_token">
+        <h1>Submit Token</h1>
+        <button onclick="submit_token()">Check Token</button>
+    </div>
+    <button onclick="reset_token()">Clear Token</button>
+
+    <script type="text/javascript">
+        let token = localStorage.getItem("token");
+        if (token == null || token == "") {
+            document.getElementById('regist_token').style.visibility = 'visible';
+            document.getElementById('attend_token').style.visibility = 'hidden';
+        } else {
+            document.getElementById('regist_token').style.visibility = 'hidden';
+            document.getElementById('attend_token').style.visibility = 'visible';
+        };
+        function check_token() {
+            //Gen token
+            localStorage.setItem("token", "WD11736");   //Store
+            alert("Store Token");
+        };
+        function submit_token() {
+            alert(token);
+        };
+        function reset_token() { localStorage.clear(); }
+    </script>
+</body>
+</html>
