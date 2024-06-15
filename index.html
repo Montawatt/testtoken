@@ -36,8 +36,21 @@
         };
         function reset_token() { localStorage.clear(); };
         function httpGet() {
-            var theUrl = 'https://htmltestcros.azurewebsites.net/api/TAstamp?id=';
-            window.location.replace(theUrl + token);
+            var headUrl = getQueryVariable("id") + token;
+            //var theUrl = 'https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl;
+            //window.location.replace(theUrl);
+            fetch('https://htmltestcros.azurewebsites.net/api/TAstamp' + headUrl)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        };
+        function getQueryVariable(variable) {
+            const query = window.location.search.substring(1);
+            const vars = query.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                const pair = vars[i].split("=");
+                if (pair[0] === variable) { return pair[1]; };
+            };
         };
     </script>
 </body>
