@@ -28,8 +28,10 @@
         if (token == null || token == "") {
             document.getElementById('regist_token').style.visibility = 'visible';
             document.getElementById('attend_token').style.visibility = 'hidden';
+            document.getElementById('attend_token').style.display = 'none';
         } else {
             document.getElementById('regist_token').style.visibility = 'hidden';
+            document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
         };
         function httpGet() {
