@@ -17,6 +17,11 @@
             <div><b>Username</b> &nbsp; <input id="username" type="text" /></div><br />
             <button onclick="httpGet()">Submit and Request Token</button>
         </div>
+        <div>
+            <br /><br />
+            <button onclick="reset_token()">Reset Token</button><br />
+            <span style="font-size:small;">You may have to request new Token from HR.</span>
+        </div>
     </div>
     <script type="text/javascript">
         let token = localStorage.getItem("token");
@@ -28,20 +33,29 @@
             document.getElementById('attend_token').style.visibility = 'visible';
         };
         function httpGet() {
-            var headToken = getQueryVariable("id");
-            if (headToken == undefined || headToken == null) { headToken = ''; };
-            var headUrl = headToken;
-            var result = "";
-            fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl)
-                .then(response => response.text())
-                .then(data => result = data)
-                .catch(error => console.error('Error:', error));
-            if (result == "") {
-                alert("Fail to stamp and token requesting. Please contact HR");
+            var username = document.getElementById("username");
+            if (username == undefined || username == '') {
+                alert("Username is required.");
             } else {
-                localStorage.setItem("token", result);
-                window.close();
+                var headToken = getQueryVariable("id");
+                if (headToken == undefined || headToken == null) {
+                    alert("Link must come from QR.");
+                } else {
+                    var headUrl = headToken + '|' + username;
+                    var result = "";
+                    fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl)
+                        .then(response => response.text())
+                        .then(data => result = data)
+                        .catch(error => console.error('Error:', error));
+                    if (result == "") {
+                        alert("Duplicate requesting. Please contact HR");
+                    } else {
+                        alert("Done");
+                        localStorage.setItem("token", result);                        
+                    };
+                };
             };
+            window.close();
         };
         function httpPost() {
             var headToken = getQueryVariable("id");
@@ -70,6 +84,10 @@
                 const pair = vars[i].split("=");
                 if (pair[0] === variable) { return pair[1]; };
             };
+        };
+        function reset_token() {
+            localStorage.clear();
+            window.close();
         };
     </script>
 </body>
