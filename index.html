@@ -35,7 +35,7 @@
             document.getElementById('attend_token').style.visibility = 'visible';
         };
         function httpGet() {
-            var username = document.getElementById("username");
+            var username = document.getElementById("username").value;
             if (username == undefined || username == '') {
                 alert("Username is required.");
             } else {
