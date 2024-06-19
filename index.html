@@ -35,15 +35,15 @@
             document.getElementById('attend_token').style.visibility = 'visible';
         };
         function httpGet() {
-            var username = document.getElementById("username").value;
-            if (username == undefined || username == '') {
+            var unn = document.getElementById("username").value;
+            if (unn == undefined || unn == '') {
                 alert("Username is required.");
             } else {
                 var headToken = getQueryVariable("id");
                 if (headToken == undefined || headToken == null) {
                     alert("Link must come from QR.");
                 } else {
-                    var headUrl = headToken + '|' + username;
+                    var headUrl = headToken + '=|' + String(unn);
                     var result = "";
                     fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl)
                         .then(response => response.text())
@@ -62,7 +62,7 @@
         function httpPost() {
             var headToken = getQueryVariable("id");
             if (headToken == undefined || headToken == null) { headToken = ''; };
-            var headUrl = headToken + token;
+            var headUrl = headToken + String(token);
             var result = "";
             fetch('https://htmltestcros.azurewebsites.net/api/TAstamp', {
                 method: 'POST',
