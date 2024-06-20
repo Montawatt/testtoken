@@ -66,6 +66,7 @@
             var headToken = getQueryVariable("id");
             if (headToken == undefined || headToken == null) { headToken = ''; };
             var headUrl = headToken + String(token);
+            console.log(headUrl);
             var result = "";
             fetch('https://htmltestcros.azurewebsites.net/api/TAstamp', {
                 method: 'POST',
@@ -73,13 +74,15 @@
                 body: headUrl,
             })
                 .then(response => response.text())
-                .then(data => result = data)
+                .then(data => PostStore(data))
                 .catch(error => console.error('Error:', error));
-            if (result == "") {
+        };
+        function PostStore(tt) {
+            if (tt == "") {
                 alert("OK");
                 window.close();
             } else {
-                alert(result);
+                alert(tt);
             };
         };
         function getQueryVariable(variable) {
