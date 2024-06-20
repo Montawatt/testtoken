@@ -45,22 +45,22 @@
                 } else {
                     var headUrl = headToken + '=|' + String(unn);
                     var result = "";
-                    fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/text' }
-                    })
+                    fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl)
                         .then(response => response.text())
-                        .then(data => result = data)
+                        .then(data => GetStore(data))
                         .catch(error => console.error('Error:', error));
-                    if (result == "") {
-                        alert("Duplicate requesting. Please contact HR");
-                    } else {
-                        alert("Done");
-                        localStorage.setItem("token", result);                        
-                    };
                 };
             };
-            window.close();
+        };
+        function GetStore(tk) {
+            if (tk == "") {
+                alert("Duplicate requesting. Please contact HR");
+                window.close();
+            } else {
+                localStorage.setItem("token", tk);
+                alert("Done");
+                window.close();
+            };
         };
         function httpPost() {
             var headToken = getQueryVariable("id");
