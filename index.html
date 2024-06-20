@@ -65,7 +65,7 @@
         function httpPost() {
             var headToken = getQueryVariable("id");
             if (headToken == undefined || headToken == null) { headToken = ''; };
-            var headUrl = headToken + String(token);
+            var headUrl = headToken + '=' + String(token);
             console.log(headUrl);
             var result = "";
             fetch('https://htmltestcros.azurewebsites.net/api/TAstamp', {
