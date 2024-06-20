@@ -45,7 +45,10 @@
                 } else {
                     var headUrl = headToken + '=|' + String(unn);
                     var result = "";
-                    fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl)
+                    fetch('https://htmltestcros.azurewebsites.net/api/TAstamp?id=' + headUrl, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/text' }
+                    })
                         .then(response => response.text())
                         .then(data => result = data)
                         .catch(error => console.error('Error:', error));
