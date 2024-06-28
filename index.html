@@ -16,7 +16,12 @@
             <h2>Need new Token</h2><br />
             <div><b>Username (ชื่อผู้ใช้)</b> &nbsp; <input id="username" type="text" /></div><br />
             <button onclick="httpGet()">Submit and Request Token (บันทึกเวลาและขอรหัสผ่าน)</button>
-        </div>        
+        </div>
+        <div>
+            <br /><br />
+            <button onclick="reset_token()">Reset Token</button><br />
+            <span style="font-size:small;">You may have to request new Token from HR.</span>
+        </div>
     </div>
     <script type="text/javascript">
         let token = localStorage.getItem("token");
@@ -80,6 +85,7 @@
                 alert(tt);
             };
         };
+        function reset_token() { localStorage.clear(); };
         function getQueryVariable(variable) {
             const query = window.location.search.substring(1);
             const vars = query.split("&");
