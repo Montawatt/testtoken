@@ -46,7 +46,7 @@
                     alert("Link must come from QR.");
                 } else {
                     var headUrl = headToken + '=|' + String(unn);
-                    document.getElementById("butt_regist").disabled = true;
+                    document.getElementById("butt_regist").disabled = true;                    
                     fetch('https://func-ta-prd-ea-01.azurewebsites.net/api/TAstamp?id=' + headUrl)
                         .then(response => response.text())
                         .then(data => GetStore(data))
