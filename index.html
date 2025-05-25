@@ -3,8 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
     <title>RHCF-TA</title>
 </head>
 <body>
@@ -25,7 +24,19 @@
             <span style="font-size:small;">You may have to request new Token from HR.</span>
         </div>-->
     </div>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script type="text/javascript">
+        async function main() {
+          alert("RHCF-TA LIFF APP")
+          await liff.init({ liffId: "2007451851-4OrymRxl" })
+          // getEnvironment()
+          // getUserProfile()
+          // getContext()
+          // getFriendship()
+          // createUniversalLink()
+        }
+        main()
+        
         let token = localStorage.getItem("token");
         if (token == null || token == "") {
             document.getElementById('regist_token').style.visibility = 'visible';
