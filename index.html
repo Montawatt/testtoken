@@ -18,11 +18,6 @@
             <div><b>Username (ชื่อผู้ใช้) เช่น 003526</b> &nbsp; <input id="username" type="text" /></div><br />
             <button id="butt_regist" style="border-radius: 3px; color: #0026ff;" onclick="httpGet()">Submit with new Token (บันทึกเวลาและเก็บรหัสใหม่)</button>
         </div>
-        <!--<div style="margin-left: 10%; width: 80%;">
-            <br /><br />
-            <button onclick="reset_token()">Reset Token</button><br />
-            <span style="font-size:small;">You may have to request new Token from HR.</span>
-        </div>-->
     </div>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script type="text/javascript">
@@ -36,16 +31,22 @@
           // createUniversalLink()
         }
         main()
-        
-        let token = localStorage.getItem("token");
-        if (token == null || token == "") {
-            document.getElementById('regist_token').style.visibility = 'visible';
-            document.getElementById('attend_token').style.visibility = 'hidden';
-            document.getElementById('attend_token').style.display = 'none';
-        } else {
+        if (liff.isInClient()) {
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
+            alert(liff.getDecodedIDToken().email);
+        } else {
+            let token = localStorage.getItem("token");
+            if (token == null || token == "") {
+                document.getElementById('regist_token').style.visibility = 'visible';
+                document.getElementById('attend_token').style.visibility = 'hidden';
+                document.getElementById('attend_token').style.display = 'none';
+            } else {
+                document.getElementById('regist_token').style.visibility = 'hidden';
+                document.getElementById('regist_token').style.display = 'none';
+                document.getElementById('attend_token').style.visibility = 'visible';
+            };
         };
         function httpGet() {
             var unn = document.getElementById("username").value;
