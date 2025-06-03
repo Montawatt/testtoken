@@ -35,16 +35,16 @@
             // createUniversalLink()
         };
         async function getUserProfile() {
+            alert("Getting User profile");
             const profile = await liff.getProfile();
-            alert("User profiling");
             document.getElementById("pictureUrl").src = profile.pictureUrl;
-            document.getElementById("displayName").textContent = profile.displayName + '(' + profile.userId + ')';
+            document.getElementById("displayName").innerHTML = profile.displayName + '(' + profile.userId + ')';
             alert(liff.getDecodedIDToken().email);
         };
         main()
         if (liff.isInClient()) {
             //Open on LINE
-            alert("RHCF-TA LIFF APP")   //Debug
+            //alert("RHCF-TA LIFF APP")   //Debug
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
