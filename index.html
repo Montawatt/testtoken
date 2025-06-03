@@ -57,8 +57,9 @@
             };
         };
         async function getUserProfile() {
-            const profile = await liff.getProfile()            
-            document.getElementById("pictureUrl").src = profile.pictureUrl
+            const profile = await liff.getProfile();
+            alert("User profiling");
+            document.getElementById("pictureUrl").src = profile.pictureUrl;
             document.getElementById("displayName").append(profile.displayName + '(' + profile.userId + ')');
             alert(liff.getDecodedIDToken().email);
         };
