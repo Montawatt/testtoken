@@ -45,10 +45,10 @@
         if (liff.isInClient()) {
             //Open on LINE
             //alert("RHCF-TA LIFF APP")   //Debug
+            getUserProfile();
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
-            getUserProfile();
         } else {
             //Open on Web browser
             let token = localStorage.getItem("token");
