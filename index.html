@@ -28,7 +28,6 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script type="text/javascript">
         async function main() {
-            alert("RHCF-TA LIFF APP")   //Debug
             await liff.init({ liffId: "2007451851-4OrymRxl" })
             // getEnvironment()
             // getContext()
@@ -39,17 +38,17 @@
             const profile = await liff.getProfile();
             alert("User profiling");
             document.getElementById("pictureUrl").src = profile.pictureUrl;
-            document.getElementById("displayName").append(profile.displayName + '(' + profile.userId + ')');
+            document.getElementById("displayName").textContent = profile.displayName + '(' + profile.userId + ')';
             alert(liff.getDecodedIDToken().email);
         };
         main()
         if (liff.isInClient()) {
             //Open on LINE
+            alert("RHCF-TA LIFF APP")   //Debug
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
             getUserProfile();
-            
         } else {
             //Open on Web browser
             let token = localStorage.getItem("token");
