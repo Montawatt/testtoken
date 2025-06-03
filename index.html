@@ -34,7 +34,14 @@
             // getContext()
             // getFriendship()
             // createUniversalLink()
-        }
+        };
+        async function getUserProfile() {
+            const profile = await liff.getProfile();
+            alert("User profiling");
+            document.getElementById("pictureUrl").src = profile.pictureUrl;
+            document.getElementById("displayName").append(profile.displayName + '(' + profile.userId + ')');
+            alert(liff.getDecodedIDToken().email);
+        };
         main()
         if (liff.isInClient()) {
             //Open on LINE
@@ -55,14 +62,7 @@
                 document.getElementById('regist_token').style.display = 'none';
                 document.getElementById('attend_token').style.visibility = 'visible';
             };
-        };
-        async function getUserProfile() {
-            const profile = await liff.getProfile();
-            alert("User profiling");
-            document.getElementById("pictureUrl").src = profile.pictureUrl;
-            document.getElementById("displayName").append(profile.displayName + '(' + profile.userId + ')');
-            alert(liff.getDecodedIDToken().email);
-        };
+        };        
         function httpGet() {
             //Regist token + stamp
             var unn = document.getElementById("username").value;
