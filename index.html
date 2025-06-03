@@ -27,25 +27,25 @@
     </div>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script type="text/javascript">
-        async function main() {
-            await liff.init({ liffId: "2007451851-4OrymRxl" })
-            // getEnvironment()
-            // getContext()
-            // getFriendship()
-            // createUniversalLink()
-        };
         async function getUserProfile() {
-            alert("Getting User profile");
             const profile = await liff.getProfile();
             document.getElementById("pictureUrl").src = profile.pictureUrl;
             document.getElementById("displayName").innerHTML = profile.displayName + '(' + profile.userId + ')';
             alert(liff.getDecodedIDToken().email);
         };
+        async function main() {
+            await liff.init({ liffId: "2007451851-4OrymRxl" })
+            getUserProfile()
+            // getEnvironment()
+            // getContext()
+            // getFriendship()
+            // createUniversalLink()
+        };
         main()
         if (liff.isInClient()) {
             //Open on LINE
             //alert("RHCF-TA LIFF APP")   //Debug
-            getUserProfile();
+            //getUserProfile();
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
