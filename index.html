@@ -12,7 +12,10 @@
         <div id="attend_token" style="margin-left: 10%; width: 80%;">
             <h2>QR code Stamp <span id="displayName"></span></h2>
             <button id="butt_attend" style="border-radius: 3px; color: #0026ff;" onclick="httpPost()">Submit (บันทึกเวลา)</button> <br />
-            <h5 id="check_local">0</h5>
+            <h5 id="check_local">0</h5><br />
+            <h5 id="type"></h5><br />
+            <h5 id="utouId"></h5>
+            <button id="btnMsg" onclick="sendMsg()">Send Message</button>
         </div>
         <div id="regist_token" style="margin-left: 10%; width: 80%;">
             <h2>Need new Token</h2><br />
@@ -34,11 +37,36 @@
             document.getElementById("displayName").innerHTML = profile.displayName + '(' + profile.userId + ')';
             
         };
+        function getContext() {
+            if (liff.getContext() != null) {
+                document.getElementById("type").append(liff.getContext().type); //1-1,none,group,room
+                //document.getElementById("viewType").append(liff.getContext().viewType); //Tall/Compact/Full
+                document.getElementById("utouId").append(liff.getContext().utouId); //ID that 1-1 LIFF open
+                //document.getElementById("roomId").append(liff.getContext().roomId); //ID on room
+                //document.getElementById("groupId").append(liff.getContext().groupId);   //ID on group
+            };
+        };
+        async function sendMsg() {
+            if (liff.getContext().type !== "none") {
+                await liff.sendMessages([
+                    {
+                        "type": "sticker",
+                        "stickerId": 1,
+                        "packageId": 1
+                    },
+                    {
+                        "type": "text",
+                        "text": "Hello, user"
+                    }
+                ]);
+                alert("Message sent");
+            };
+        };
         async function main() {
             await liff.init({ liffId: "2007451851-4OrymRxl" })
             getUserProfile()
             // getEnvironment()
-            // getContext()
+            getContext()
             // getFriendship()
             // createUniversalLink()
         };
