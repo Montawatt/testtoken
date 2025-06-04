@@ -50,10 +50,10 @@
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
-            let atttimes = localStorage.getItem("atttimes");
-            if (atttimes == null || atttimes == "") { atttimes = 1; } else { atttimes += 1; };
+            let atttimes = localStorage.getItem("atttimes");            
+            if (atttimes == null || atttimes == "") { atttimes = 1; } else { atttimes = parseInt(atttimes) + 1; };
             document.getElementById("check_local").innerHTML = atttimes;
-            localStorage.setItem("atttimes", 1);
+            localStorage.setItem("atttimes", atttimes);
         } else {
             //Open on Web browser
             let token = localStorage.getItem("token");
