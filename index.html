@@ -12,6 +12,7 @@
         <div id="attend_token" style="margin-left: 10%; width: 80%;">
             <h2>QR code Stamp <span id="displayName"></span></h2>
             <button id="butt_attend" style="border-radius: 3px; color: #0026ff;" onclick="httpPost()">Submit (บันทึกเวลา)</button> <br />
+            <h5 id="check_local">0</h5>
         </div>
         <div id="regist_token" style="margin-left: 10%; width: 80%;">
             <h2>Need new Token</h2><br />
@@ -31,7 +32,7 @@
             const profile = await liff.getProfile();
             document.getElementById("pictureUrl").src = profile.pictureUrl;
             document.getElementById("displayName").innerHTML = profile.displayName + '(' + profile.userId + ')';
-            alert(liff.getDecodedIDToken().email);
+            
         };
         async function main() {
             await liff.init({ liffId: "2007451851-4OrymRxl" })
@@ -49,6 +50,10 @@
             document.getElementById('regist_token').style.visibility = 'hidden';
             document.getElementById('regist_token').style.display = 'none';
             document.getElementById('attend_token').style.visibility = 'visible';
+            let atttimes = localStorage.getItem("atttimes");
+            if (atttimes == null || atttimes == "") { atttimes = 1; } else { atttimes += 1; };
+            document.getElementById("check_local").innerHTML = atttimes;
+            localStorage.setItem("atttimes", 1);
         } else {
             //Open on Web browser
             let token = localStorage.getItem("token");
