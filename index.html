@@ -94,10 +94,10 @@
             if (atttimes == null || atttimes == "") { atttimes = 1; } else { atttimes = parseInt(atttimes) + 1; };
             document.getElementById("check_local").innerHTML = atttimes;
             localStorage.setItem("atttimes", atttimes); //Stored 
-            document.addEventListener("DOMContentLoaded", async () => {
+            (async () => {
                 alert("Activate Scan");
                 await scanCode(token);
-            });
+            })();
         } else {
             //Open on Web browser
             if (token == null || token == "") {
