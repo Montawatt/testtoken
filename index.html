@@ -13,8 +13,6 @@
             <h4>QR code Stamp <span id="displayName"></span></h4>
             <button id="butt_attend" style="border-radius: 3px; color: #0026ff;" onclick="httpPost()">Submit (บันทึกเวลา)</button> <br />
             <h5 id="check_local">0</h5><br />
-            <h5 id="type"></h5><br />
-            <h5 id="utouId"></h5><br />
             <button id="btnMsg" onclick="sendMsg()">Send Message</button>
         </div>
         <div id="regist_token" style="margin-left: 10%; width: 80%;">
@@ -66,25 +64,21 @@
             await liff.init({ liffId: "2007451851-4OrymRxl" })
             getUserProfile()
             // getEnvironment()
-            getContext()
+            //getContext()
             // getFriendship()
             // createUniversalLink()
         };
-        main()
+        main();
+        let token = localStorage.getItem("token");
         if (liff.isInClient()) {
             //Open on LINE
-            //alert("RHCF-TA LIFF APP")   //Debug
-            //getUserProfile();
-            document.getElementById('regist_token').style.visibility = 'hidden';
-            document.getElementById('regist_token').style.display = 'none';
-            document.getElementById('attend_token').style.visibility = 'visible';
-            let atttimes = localStorage.getItem("atttimes");            
+            let atttimes = localStorage.getItem("atttimes");
             if (atttimes == null || atttimes == "") { atttimes = 1; } else { atttimes = parseInt(atttimes) + 1; };
             document.getElementById("check_local").innerHTML = atttimes;
-            localStorage.setItem("atttimes", atttimes);
+            localStorage.setItem("atttimes", atttimes); //Stored 
+            scanCode(token);
         } else {
             //Open on Web browser
-            let token = localStorage.getItem("token");
             if (token == null || token == "") {
                 document.getElementById('regist_token').style.visibility = 'visible';
                 document.getElementById('attend_token').style.visibility = 'hidden';
@@ -95,13 +89,30 @@
                 document.getElementById('attend_token').style.visibility = 'visible';
             };
         };        
-        function httpGet() {
+        async function scanCode(tok) {
+            const result = await liff.scanCode();
+            const query = result.value;
+            alert(query);   //Test
+            if (query != undefined && query.length > 5) {
+                if (tok == null || tok == "") {
+                    document.getElementById('regist_token').style.visibility = 'visible';
+                    document.getElementById('attend_token').style.visibility = 'hidden';
+                    document.getElementById('attend_token').style.display = 'none';
+                    httpGet(query);
+                } else {
+                    httpPost(query);
+                }
+            } else {
+                document.getElementById('txalert').innerHTML = "LINE QR scan had problem.";
+            };
+        };
+        function httpGet(uri) {
             //Regist token + stamp
             var unn = document.getElementById("username").value;
             if (unn == undefined || unn == '') {
                 document.getElementById('txalert').innerHTML = "Username is required.";
             } else {
-                var headToken = getQueryVariable("id");
+                var headToken = getQueryVariable("id", uri);
                 if (headToken == undefined || headToken == null) {
                     document.getElementById('txalert').innerHTML = "Link must come from QR.";
                 } else {
@@ -123,9 +134,9 @@
                 window.location.replace('/myatt.html');  //Done
             };
         };
-        function httpPost() {
+        function httpPost(uri) {
             //Stamp with token
-            var headToken = getQueryVariable("id");
+            var headToken = getQueryVariable("id", uri);
             if (headToken == undefined || headToken == null) { headToken = ''; };
             var headUrl = headToken + '=' + String(token);
             document.getElementById("butt_attend").disabled = true;
@@ -147,8 +158,13 @@
             };
         };
         //function reset_token() { localStorage.clear(); };
-        function getQueryVariable(variable) {
-            const query = window.location.search.substring(1);
+        function getQueryVariable(variable, urlstr) {
+            var query = "";
+            if (urlstr == null || urlstr == '') {
+                query = window.location.search.substring(1);
+            } else {
+                query = urlstr;
+            };
             const vars = query.split("&");
             for (let i = 0; i < vars.length; i++) {
                 const pair = vars[i].split("=");
