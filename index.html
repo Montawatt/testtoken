@@ -60,6 +60,23 @@
                 alert("Message sent");
             };
         };
+        async function scanCode(tok) {
+            const result = await liff.scanCode();
+            const query = result.value;
+            alert(query);   //Test
+            if (query != undefined && query.length > 5) {
+                if (tok == null || tok == "") {
+                    document.getElementById('regist_token').style.visibility = 'visible';
+                    document.getElementById('attend_token').style.visibility = 'hidden';
+                    document.getElementById('attend_token').style.display = 'none';
+                    httpGet(query);
+                } else {
+                    httpPost(query);
+                }
+            } else {
+                document.getElementById('txalert').innerHTML = "LINE QR scan had problem.";
+            };
+        };
         async function main() {
             await liff.init({ liffId: "2007451851-4OrymRxl" })
             getUserProfile()
@@ -89,23 +106,7 @@
                 document.getElementById('attend_token').style.visibility = 'visible';
             };
         };        
-        async function scanCode(tok) {
-            const result = await liff.scanCode();
-            const query = result.value;
-            alert(query);   //Test
-            if (query != undefined && query.length > 5) {
-                if (tok == null || tok == "") {
-                    document.getElementById('regist_token').style.visibility = 'visible';
-                    document.getElementById('attend_token').style.visibility = 'hidden';
-                    document.getElementById('attend_token').style.display = 'none';
-                    httpGet(query);
-                } else {
-                    httpPost(query);
-                }
-            } else {
-                document.getElementById('txalert').innerHTML = "LINE QR scan had problem.";
-            };
-        };
+        
         function httpGet(uri) {
             //Regist token + stamp
             var unn = document.getElementById("username").value;
